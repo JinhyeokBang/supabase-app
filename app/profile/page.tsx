@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 const supabase = createClient();
 
 const SignIn = () => {
-  const [profile, setProfile] = useState<Record<string, unknown> | null>();
+  const [profile, setProfile] = useState<Tables<'profiles'> | null>();
 
   useEffect(() => {
     loadUser();
@@ -17,12 +17,12 @@ const SignIn = () => {
     const { data, error } = await supabase.auth.getUser();
     if (data.user != null) {
       console.log(data.user.id);
-      const profile: Tables<'profiles'> = await supabase
+      const profile = await supabase
         .from('profiles')
         .select()
         .limit(1)
         .maybeSingle();
-      setProfile(profile);
+      setProfile(profile.data);
     }
   }
   
