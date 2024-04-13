@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { createClient } from "@/utils/supabase/client";
 import { User } from "@supabase/supabase-js";
+import { Button } from "@mui/material";
 
 const supabase = createClient();
 
@@ -36,12 +37,11 @@ const Index = () => {
   return (
     <div>
       <div className="flex-1 w-full flex flex-col gap-20 items-center">
-          { user == null ? 'login needed' : 'already logined' } <br/>
-          { user && `id: ${user.id}, email: ${user.email}` }
+          { user && `user email: ${user.email}` }
       </div>
       {
         user == null && <div className="h-full flex justify-center items-center">
-          <button onClick={logInWithKakao}>just click me</button>
+          <Button variant="contained" onClick={logInWithKakao}>just click me</Button>
         </div>
       }
     </div>
